@@ -19,7 +19,7 @@ class SynoSpider(scrapy.Spider):
             )
 
     def get_synonyms(self, response):
-        for s in response.xpath('//h2[contains(@class, "WordGridSectionHeading")]'
+        for s in response.xpath('(//h2[contains(@class, "WordGridSectionHeading")])[1]'  # use [2] to get antonyms.
                                 '/following-sibling::ul[contains(@class, "WordGridLayoutBox")]'
                                 '/li/span/a/text()'):
             print(f'###### {s.get()}')
