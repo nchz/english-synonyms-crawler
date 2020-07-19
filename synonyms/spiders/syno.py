@@ -1,18 +1,17 @@
 import scrapy
 
 
-WORD_LIST = [
-    'tree',
-    'circle',
-]
-
-
 class SynoSpider(scrapy.Spider):
     name = 'syno'
     allowed_domains = ['thesaurus.com']
 
+    def __init__(self, words_file, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        with open(words_file) as f:
+            self.words = [w for w in f.read().splitlines() if w != '']
+
     def start_requests(self):
-        for word in WORD_LIST:
+        for word in self.words:
             yield scrapy.Request(
                 f'http://thesaurus.com/browse/{word}',
                 callback=self.get_synonyms,
