@@ -17,6 +17,7 @@ class SynoSpider(scrapy.Spider):
                 callback=self.get_synonyms,
                 meta={
                     'target_word': word,
+                    'handle_httpstatus_list': [404],
                 },
             )
 
@@ -24,4 +25,7 @@ class SynoSpider(scrapy.Spider):
         results = response.xpath('(//h2[contains(@class, "WordGridSectionHeading")])[1]'  # use [2] to get antonyms.
                                  '/following-sibling::ul[contains(@class, "WordGridLayoutBox")]'
                                  '/li/span/a/text()')
-        yield {response.meta['target_word']: [r.get() for r in results]}
+        if results != []:
+            yield {response.meta['target_word']: [r.get() for r in results]}
+        else:
+            self.logger.warning(f'No results for "{response.meta["target_word"]}".')
