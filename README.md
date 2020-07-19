@@ -13,6 +13,13 @@ To run the crawler:
 scrapy crawl syno -a words_file=words.txt -o output.json
 ```
 
+You may also look for antonyms using the `type` argument:
+```
+scrapy crawl syno -a type=antonyms -a words_file=words.txt -o output.json
+```
+
+This argument may not be fully passed. It checks a `startswith` condition, so you can just pass `-a type=a`, or `-a type=ant`. Same thing for `synonyms`.
+
 
 ## Requirements
 
