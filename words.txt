@@ -1,0 +1,14 @@
+Compressing
+objects
+done
+Writing
+Total
+delta
+reused
+remote
+Resolving
+completed
+with
+local
+master
+notarealword
